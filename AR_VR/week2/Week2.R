@@ -122,3 +122,35 @@ movie3d(movie = "3DAnimatedScatterPlot",
         dir = getwd(),
         type = "gif",
         clean = TRUE)
+
+#### plots using plotly
+install.packages("plotly")
+library(plotly)
+
+############## QUESTION 4 #############
+# scatter plot
+plot_ly(iris, x=~x, y=~y, z=~z)
+
+# you can also pass the names of the variables
+plot_ly(iris,
+        x=~Sepal.Length,
+        y=~Sepal.Width,
+        z=~Petal.Length)
+
+# add colour
+plot_ly(iris, x=~x, y=~y, z=~z, color = ~Species)
+
+p <- plot_ly(iris, x=~x, y=~y, z=~z)
+p <- add_markers(p, color = ~Species)
+p
+
+# or use pipes
+p <- plot_ly(iris, x=~x, y=~y, z=~z) %>%
+  add_markers(p, color = ~Species)
+p
+
+# add labels to the plot
+variables <-names(iris)
+layout(p, scene = list(xaxis = list(title = variables[1]),
+                       yaxis = list(title = variables[2]),
+                       zaxis = list(title = variables[3])))
