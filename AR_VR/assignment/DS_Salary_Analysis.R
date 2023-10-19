@@ -76,12 +76,12 @@ top_five_jobs <- salary_df %>%
   group_by(job_title) %>% 
   summarise(average_salary = mean(salary)) %>% 
   arrange(desc(average_salary)) %>% 
-  head()
+  head(n=5)
 
 print(top_five_jobs)
 
 # creating a color palette
-colors <- c("red", "blue", "green", "orange", "purple", "yellow")
+colors <- c("red", "blue", "green", "orange", "purple")
 ggplot(top_five_jobs, aes(x=job_title, y=average_salary, fill=job_title)) +
   geom_col() +
   scale_fill_manual(values = colors) + 
@@ -98,7 +98,7 @@ salary_based_on_currency <- salary_df %>%
   group_by(salary_currency) %>% 
   summarise(average_salary = mean(salary)) %>% 
   arrange(desc(average_salary)) %>% 
-  head()
+  head(n=5)
 
 print(salary_based_on_currency)
 
@@ -127,7 +127,7 @@ salary_by_experience
 
 ggplot(salary_by_experience, aes(x=experience_level, y=average_salary, fill=experience_level)) +
   geom_col() +
-  labs(title = "Average Salary based on Experience", x="Experience", y="Average Salary")
+  labs(title = "Average Salary based on Experience Level", x="Experience Level", y="Average Salary")
 
 # creating boxplot to see the distribution of salary based on experience level
 ggplot(salary_df, aes(x=experience_level, y=scale(salary))) +
@@ -156,3 +156,8 @@ print(salary_by_employment_type)
 ggplot(salary_by_employment_type, aes(x=employment_type, y=average_salary, fill=employment_type)) +
   geom_col() +
   labs(title = "Average Salary based on Employment Type", x="Employment Type", y="Average Salary")
+
+ggplot(salary_df, aes(x=employment_type, y=salary_in_usd)) +
+  geom_boxplot(fill="skyblue") +
+  labs(title="Distribution of Salary by Employment Type", x="Employment Type", y="Salary")
+
