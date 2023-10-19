@@ -1,7 +1,5 @@
 #Unit:RegressionModelling
 #Assignment 
-#STUDENT NAME:SHITAL GHIMIRE
-#STUDENT ID:U3218501
 #cleaning the environment
 rm(list=ls()) 
 
@@ -98,8 +96,7 @@ df_2 <- df %>%
   select(-company_size, -employment_type,-experience_level,-job_title,-employee_residence,-company_location,-salary_currency)
 head(df_2)
 install.packages("corrplot")
-library(corrplot)
-# Load the corrplot package
+
 library(corrplot)
 
 # Create a correlation matrix (example data)
@@ -186,7 +183,7 @@ library(ggplot2)
 library(ggplot2)
 
 # Create a bar plot with labels
-p <- ggplot(counts_df, aes(x = employment_type, y = count, label = count)) +
+p <- ggplot(df, aes(x = employment_type, y = count, label = count)) +
   geom_col(fill = "#0072B2", width = 0.6) + # Custom color and width
   geom_text(vjust = -0.5, size = 6, color = "black", fontface = "bold") + # Adjust label size and style
   labs(title = 'Employment Type of Data Science Jobs',
