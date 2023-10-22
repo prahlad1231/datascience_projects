@@ -28,7 +28,6 @@ frequency_work_year
 #pie(frequency_work_year, col = color_palette, main = "Distribution of Work Year")
 #legend("topright", as.character(sort(unique_work_years)), cex=0.7, fill = color_palette)
 
-# Sample data (replace with your actual data)
 unique_work_years <- unique(salary_df$work_year)
 frequency_work_year <- table(salary_df$work_year)
 
@@ -107,8 +106,6 @@ ggplot(salary_based_on_currency, aes(x=salary_currency, y=average_salary, fill=s
   scale_fill_manual(values = colors) + 
   labs(title = "Salary vs. Currency", x="Salary", y = "Currency")
 
-
-library(ggplot2)
 
 library(ggplot2)
 

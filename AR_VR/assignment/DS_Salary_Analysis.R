@@ -54,7 +54,11 @@ print(sorted_frequency_of_unique_values)
 colnames(col_array)
 labels <- c("Experience Level", "Employment Type", "Job Title", "Salary Currency", "Employee Residence", "Company Location", "Company Size")
 for (i in 1:length(sorted_frequency_of_unique_values)) {
-  barplot(head(sorted_frequency_of_unique_values[[i]]), main=labels[i], xlab="Category", ylab="Count")
+  barplot(head(sorted_frequency_of_unique_values[[i]]), 
+          main=labels[i], 
+          xlab="Category", 
+          ylab="Count", 
+          col = rainbow(length(sorted_frequency_of_unique_values)))
 }
 
 # finding the trends in the average salaries in each year
