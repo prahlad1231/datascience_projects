@@ -72,13 +72,13 @@ print(average_annual_salary)
 
 # plotting a trend line
 ggplot(average_annual_salary, aes(x=sort(unique_work_years), y=average_salary)) +
-  geom_line() +
+  geom_line(color="blue") +
   labs(title = "Trends of Average Annual Salary", x="Work Year", y="Average Salary")
 
 # getting the top 5 job titles and their salaries
 top_five_jobs <- salary_df %>% 
   group_by(job_title) %>% 
-  summarise(average_salary = mean(salary)) %>% 
+  summarise(average_salary = mean(salary_in_usd)) %>% 
   arrange(desc(average_salary)) %>% 
   head(n=5)
 
@@ -115,7 +115,7 @@ ggplot(salary_based_on_currency, aes(x=salary_currency, y=average_salary, fill=s
 # trends in the salaries based on company size
 salary_based_on_company_size <- salary_df %>% 
   group_by(company_size) %>% 
-  summarise(average_salary = mean(salary))
+  summarise(average_salary = mean(salary_in_usd))
 salary_based_on_company_size
 
 ggplot(salary_based_on_company_size, aes(x=company_size, y=average_salary, fill=company_size)) +
@@ -126,7 +126,7 @@ ggplot(salary_based_on_company_size, aes(x=company_size, y=average_salary, fill=
 # distribution of salary by experience level
 salary_by_experience <- salary_df %>% 
   group_by(experience_level) %>% 
-  summarise(average_salary = mean(salary))
+  summarise(average_salary = mean(salary_in_usd))
 salary_by_experience
 
 ggplot(salary_by_experience, aes(x=experience_level, y=average_salary, fill=experience_level)) +
@@ -139,7 +139,7 @@ ggplot(salary_df, aes(x=experience_level, y=scale(salary))) +
   labs(title="Boxplot of Salary based on Experience Level", x='Experience Level', y='Salary') +
   theme_minimal()
 
-# seeing the distribution of salary in usd and expeience level
+# seeing the distribution of salary in usd and experience level
 ggplot(salary_df, aes(x=experience_level, y=salary_in_usd)) +
   geom_boxplot(fill="red") +
   labs(title="Distribution of Salary by Experience Level", x="Experience Level", y="Salary in USD") +
@@ -154,7 +154,7 @@ salary_in_usd_histogram
 # distribution of salary by employment type
 salary_by_employment_type <- salary_df %>% 
   group_by(employment_type) %>% 
-  summarise(average_salary = mean(salary))
+  summarise(average_salary = mean(salary_in_usd))
 print(salary_by_employment_type)
 
 ggplot(salary_by_employment_type, aes(x=employment_type, y=average_salary, fill=employment_type)) +
