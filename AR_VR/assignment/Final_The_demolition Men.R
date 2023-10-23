@@ -157,6 +157,35 @@ for (i in 1:length(sorted_frequency_of_unique_values)) {
           col = rainbow(length(sorted_frequency_of_unique_values)))
 }
 
+library(shiny)
+
+# Define the UI
+ui <- fluidPage(
+  titlePanel("Barplots with Shiny Dropdown"),
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("category", "Select Category:", labels)
+    ),
+    mainPanel(
+      plotOutput("barplot")
+    )
+  )
+)
+
+# Define the server logic
+server <- function(input, output) {
+  output$barplot <- renderPlot({
+    i <- match(input$category, labels)
+    colors_shiny <- rainbow(length(sorted_frequency_of_unique_values[[i]]))
+    barplot(head(sorted_frequency_of_unique_values[[i]], 
+                 ), col = colors_shiny)
+    title(main = labels[i], xlab = "Category", ylab = "Count")
+  })
+}
+
+# Run the Shiny app
+shinyApp(ui=ui, server=server)
+
 #Analyis-1
 unique_work_years <- unique(df$work_year)
 
@@ -209,7 +238,7 @@ top_five_jobs <- df %>%
 
 print(top_five_jobs)
 
-#defininf a color palette
+#defining a color palette
 colors <- c("red", "blue", "green", "orange", "purple")
 
 #creating the bar plot with formatted y-axis labels
