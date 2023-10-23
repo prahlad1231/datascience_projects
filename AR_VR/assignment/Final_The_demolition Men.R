@@ -12,6 +12,8 @@ install.packages("corrplot")
 library(corrplot)
 require(tcltk)
 library(ggplot2)
+library(dplyr)
+library(forcats)
 msgBox <- tkmessageBox(title = "Information about the code",
                        message = "Lets Load and Explore the DataSet we have selected!", icon = "info")
 
@@ -157,11 +159,12 @@ for (i in 1:length(sorted_frequency_of_unique_values)) {
           col = rainbow(length(sorted_frequency_of_unique_values)))
 }
 
+
 library(shiny)
 
 # Define the UI
 ui <- fluidPage(
-  titlePanel("Barplots with Shiny Dropdown"),
+  titlePanel("Frequency based on different Categories"),
   sidebarLayout(
     sidebarPanel(
       selectInput("category", "Select Category:", labels)
@@ -171,6 +174,7 @@ ui <- fluidPage(
     )
   )
 )
+
 
 # Define the server logic
 server <- function(input, output) {
@@ -186,7 +190,8 @@ server <- function(input, output) {
 # Run the Shiny app
 shinyApp(ui=ui, server=server)
 
-#Analyis-1
+
+#Analysis-1
 unique_work_years <- unique(df$work_year)
 
 unique_work_years
