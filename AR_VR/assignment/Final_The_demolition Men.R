@@ -120,6 +120,43 @@ Company Size:
 "M" (50 to 250 employees - Medium)-2
 "S" (Less than 50 employees - Small)-1'
 
+# taking the unique values of work_year
+unique_work_years <- unique(df$work_year)
+unique_work_years
+
+# finding the frequency of work years
+frequency_work_year <- table(df$work_year)
+frequency_work_year
+
+color_palette <- rainbow(length(frequency_work_year))
+
+# showing  data in bar plot
+barplot(frequency_work_year, xlab = "Year", ylab="Count", main = "Distribution of Work Year", col = color_palette)
+legend("topleft", as.character(sort(unique_work_years)), fill = color_palette)
+
+col_array <- df[, c(2, 3, 4, 6, 8, 10, 11)]
+unique_values <- sapply(col_array, function(column) unique(column))
+print(unique_values)
+
+# finding the frequency of each values
+frequency_of_unique_values <- sapply(col_array, function(column) table(column))
+frequency_of_unique_values
+# sorting the values based on their frequency (high to low)
+sorted_frequency_of_unique_values <- lapply(frequency_of_unique_values, function(column) column[order(column, decreasing = TRUE)])
+print(sorted_frequency_of_unique_values)
+
+
+# Plotting the bar graph of the above columns for top 5 categories
+colnames(col_array)
+labels <- c("Experience Level", "Employment Type", "Job Title", "Salary Currency", "Employee Residence", "Company Location", "Company Size")
+for (i in 1:length(sorted_frequency_of_unique_values)) {
+  barplot(head(sorted_frequency_of_unique_values[[i]]), 
+          main=labels[i], 
+          xlab="Category", 
+          ylab="Count", 
+          col = rainbow(length(sorted_frequency_of_unique_values)))
+}
+
 #Analyis-1
 unique_work_years <- unique(df$work_year)
 
@@ -147,7 +184,7 @@ ggplot(average_annual_salary, aes(x = sort(unique_work_years), y = average_salar
 # distribution of salary by experience level
 salary_by_experience <- df %>% 
   group_by(experience_level) %>% 
-  summarise(average_salary = mean(salary))
+  summarise(average_salary = mean(salary_in_usd))
 salary_by_experience
 
 ggplot(salary_by_experience, aes(x = fct_reorder(experience_level, -average_salary), y = average_salary, fill = experience_level)) +
@@ -184,33 +221,11 @@ ggplot(top_five_jobs, aes(x = job_title, y = average_salary, fill = job_title)) 
   theme(axis.text.x = element_text(angle = 90, hjust = 1)) +
   scale_y_continuous(labels = scales::comma)  # Format y-axis labels as integers
 
-
-#in addition to this lets lets see the top 10 Job titles 
-#reordering "job_title" based on count
-df$job_title <- factor(df$job_title, levels = names(sort(table(df$job_title), decreasing = TRUE)))
-
-#filtering the data to keep only the top 10 categories
-df <- df[df$job_title %in% levels(df$job_title)[1:10], ]
-
-#creating the bar chart
-ggplot(df, aes(x = job_title)) +
-  geom_bar() +
-  geom_text(aes(label = ..count..), stat = 'count', vjust = -0.5, size = 5, hjust = 1) + # Print count labels
-  labs(title = 'Top 10 Job Titles in Data Science',
-       x = 'Job Titles',
-       y = 'Count') +
-  theme_minimal() +
-  theme(plot.title = element_text(size = 20, face = 'bold'),
-        axis.title.x = element_text(size = 17, face = 'bold'),
-        axis.title.y = element_text(size = 17, face = 'bold'),
-        axis.text.y = element_text(size = 11)) + # Adjust label size
-  coord_flip()
-
 #Analyis_4
 # trends in the salaries based on company size
 salary_based_on_company_size <- df %>% 
   group_by(company_size) %>% 
-  summarise(average_salary = mean(salary))
+  summarise(average_salary = mean(salary_in_usd))
 salary_based_on_company_size
 # Creating a color palette
 colors <- c("#0072B2", "#56B4E9", "#009E73")
@@ -253,5 +268,26 @@ ggplot(top_countries, aes(x = reorder(Country, -Frequency), y = Frequency, fill 
     axis.text.x = element_text(size = 12, angle = 45, hjust = 1)  # Rotate x-axis labels for readability
   )
 
+## Analysis 6
+#in addition to this lets lets see the top 10 Job titles 
+#reordering "job_title" based on count
+df$job_title <- factor(df$job_title, levels = names(sort(table(df$job_title), decreasing = TRUE)))
+
+#filtering the data to keep only the top 10 categories
+df <- df[df$job_title %in% levels(df$job_title)[1:10], ]
+
+#creating the bar chart
+ggplot(df, aes(x = job_title)) +
+  geom_bar(fill=rainbow(10)) +
+  geom_text(aes(label = ..count..), stat = 'count', vjust = -0.5, size = 5, hjust = 1) + # Print count labels
+  labs(title = 'Top 10 Job Titles in Data Science',
+       x = 'Job Titles',
+       y = 'Count') +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 20, face = 'bold'),
+        axis.title.x = element_text(size = 17, face = 'bold'),
+        axis.title.y = element_text(size = 17, face = 'bold'),
+        axis.text.y = element_text(size = 11)) + # Adjust label size
+  coord_flip()
 
 
