@@ -46,14 +46,17 @@ server <- function(input, output) {
   
   
   # Boxplot output
+
   output$boxplot <- renderPlot({
-    ggplot(filteredData() %>% pivot_longer(cols = c(input$categories), names_to = "category", values_to = "value"), aes(x = category, y = value)) +
+    ggplot(filteredData() %>% pivot_longer(cols = c(input$categories), names_to = "category", values_to = "value"), aes(x = category, y = value, fill = category)) +
       geom_boxplot() +
       geom_hline(yintercept = 0, linetype = "solid", color = "black", size = 0.5) +
+      scale_fill_manual(values = c("red", "green", "blue", "orange")) +  # Define colors here
       theme_minimal() +
       theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
-            axis.line.x = element_line(color = "white"),  # Set color to "white" to remove the lines
-            axis.line.y = element_line(color = "black", size = 0.5))
+            axis.line.x = element_line(color = "black", size = 0.5),
+            axis.line.y = element_line(color = "black", size = 0.5)
+      )
   })
   
   # Summary output
@@ -71,7 +74,7 @@ server <- function(input, output) {
       mean_val <- mean(category_data)
       sd_val <- sd(category_data)
       
-      result <- paste(result, br(), category, br(), "Average:", mean_val, br(), "SD:", sd_val)
+      result <- paste(result, category, "Average:", mean_val, "SD:", sd_val, sep = "\n")
     }
     
     return(result)
