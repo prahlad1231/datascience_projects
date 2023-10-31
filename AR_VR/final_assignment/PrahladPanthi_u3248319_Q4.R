@@ -1,4 +1,4 @@
-# Create an interactive user interface that displays content in a sidebar layout of the attached ds_shinyappset, where 
+# Create an interactive user interface that displays content in a sidebar layout of the attached dataset_shinyapp.csv, where 
 # the sidebar  panel is on the left and the output plots is on the right.
 
 # reading the file "ds_shinyapp.csv"
@@ -92,3 +92,4 @@ server <- function(input, output) {
 }
 
 shinyApp(ui = ui, server = server)
+

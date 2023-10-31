@@ -1,3 +1,35 @@
+# a
+# Seeing the trends in the dataset, we can conclude that the rate of cholesterol has increased for all the test groups 
+# over the period of time from 2015 to 2019. Thus, we cannot use the product in the market.
+
+# b
+# Plot: Over a five-year period from 2015 to 2019, we observed a noteworthy trend in cholesterol rates across multiple 
+# research centers (A-M). This analysis is crucial as it sheds light on the evolving health landscape and allows us 
+# to make informed decisions.
+# 
+# Rising Action: In 2015, we began our journey, noting that the average cholesterol rates in all research centers were relatively stable, with some minor variations.
+# As we moved to 2016, a subtle yet consistent rise in cholesterol levels became evident, hinting at a potential health concern.
+# 
+# Climax: The turning point arrived in 2017 when the cholesterol rates notably increased across all research centers. 
+# This escalation was statistically significant and couldn't be overlooked.
+# 
+# Falling Action: The year 2018 continued the upward trajectory, with cholesterol rates continuing to climb, reinforcing the 
+# importance of our analysis. By 2019, the trend was unmistakable, and cholesterol levels reached a point where action was imperative.
+# 
+# Ending: As there is upward growth in the cholesterol rates of the test groups, the vaccine is not suitable for rolling out 
+# for the public. There must be some changes made to the vaccine in order to stabalize and improve the rates in the test groups.
+
+
+# c
+# 
+# I choose the line chart to support my claim. We can clearly see the increasing trend in the cholesterol level 
+# of test groups in various research centers over the period of 5 years i.e. from 2015 to 2019. This is certainly not 
+# a positive outcome that we were looking for, which suggests us that the vaccine is not yet ready for the broad market.
+# Overall, the line chart effectively conveys the increasing trend in cholesterol rates over time and enables easy 
+# comparison across different research centers, aligning with my Big Idea of the analysis.
+
+
+
 # loading the necessary libraries
 library(ggplot2)
 library(tidyr)
@@ -21,15 +53,15 @@ head(long_df)
 # Creating the bar plot
 long_df$Value <- as.numeric(gsub("%", "", long_df$Value))  # Convert Value to numeric and remove "%" symbol
 
-ggplot(long_df, aes(x = Research_centre, y = Value, fill = Year)) +
-  geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "R&D data of Research Centres",
-       x = "Research Centres",
-       y = "Value") +
-  scale_fill_manual(values = c("X2015" = "red", "X2016" = "green", "X2017" = "blue", "X2018" = "yellow", "X2019" = "pink")) +
-  scale_y_continuous(limits = c(0, 14), breaks = seq(0, 14, by = 2), labels = paste0(seq(0, 14, by = 2), "%")) +
-  theme(legend.position = "right") + # making the legend to appear at the right hand side of the plot
-  labs(fill = "Years")  # Adding a title to the legend
+# ggplot(long_df, aes(x = Research_centre, y = Value, fill = Year)) +
+#   geom_bar(stat = "identity", position = "dodge") +
+#   labs(title = "R&D data of Research Centres",
+#        x = "Research Centres",
+#        y = "Value") +
+#   scale_fill_manual(values = c("X2015" = "red", "X2016" = "green", "X2017" = "blue", "X2018" = "yellow", "X2019" = "pink")) +
+#   scale_y_continuous(limits = c(0, 14), breaks = seq(0, 14, by = 2), labels = paste0(seq(0, 14, by = 2), "%")) +
+#   theme(legend.position = "right") + # making the legend to appear at the right hand side of the plot
+#   labs(fill = "Years")  # Adding a title to the legend
 
 
 ########################################################################################################################
@@ -58,3 +90,4 @@ ggplot(long_df, aes(x = Year, y = Value, color = Research_centre, group = Resear
   scale_y_continuous(limits = c(0, 14), breaks = seq(0, 14, by = 2), labels = paste0(seq(0, 14, by = 2), "%")) +
   scale_x_discrete(labels = function(x) gsub("X", "", x)) +  # Remove "X" prefix from x-axis labels
   theme(legend.position = "bottom", legend.title = element_blank())
+
