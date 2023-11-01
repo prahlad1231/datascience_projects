@@ -14,12 +14,6 @@ df <- df %>%
   select(c(variable_1, variable_2, variable_3))
 head(df)
 
-# Extract values from the dfset
-sphere_position_x <- df$variable_1
-sphere_position_y <- df$variable_2
-sphere_position_z <- df$variable_3
-target_values <- df$target
-
 # Define a color palette based on target values
 color_palette <- c("red", "green", "blue", "yellow")
 
